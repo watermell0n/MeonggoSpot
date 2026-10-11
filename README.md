@@ -188,7 +188,7 @@ SSAFY 15기 6인 팀 프로젝트입니다.
 | 준호 | 팀장 · AI |
 | 민서 | AI |
 | 병현 | Backend |
-| 수경 | Backend |
+| 수경 | Backend · Data |
 | 채원 | Android |
 | 진광 | Infrastructure · Data |
 
