@@ -87,7 +87,7 @@ SSAFY 15기 6인
 | 준호 | 팀장 · AI |
 | 민서 | AI |
 | 병현 | BE |
-| 수경 | BE |
+| 수경 | BE · DATA |
 | 채원 | FE |
 | 진광 | INFRA · DATA |
 
