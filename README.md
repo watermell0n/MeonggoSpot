@@ -39,9 +39,9 @@ SSAFY 15기 특화 프로젝트 · 빅데이터 분산 처리 · 6인 팀
 
 ## 담당 역할과 기여
 
-**[@watermell0n](https://github.com/watermell0n) — Data 파트 전체 · 데이터 인프라 · Backend/Android 일부**
+**[@watermell0n](https://github.com/watermell0n) — Data 파트 · 데이터 인프라 · Backend/Android 일부**
 
-6인 팀에서 **공공 데이터 수집부터 임베딩 적재, 매칭 엔진, 분산 연산과 벡터 색인까지 데이터 처리 전반**을 맡았습니다. 데이터 처리 인프라를 구성하고, 서비스 연결을 위해 Spring 기반 채팅·알림 API와 Android 개발에도 일부 참여했습니다.
+6인 팀에서 **공공 데이터 수집부터 임베딩 적재, 매칭 엔진, 분산 연산과 벡터 색인까지 데이터 처리**를 맡았습니다. 데이터 처리 인프라를 구성하고, 서비스 연결을 위해 Spring 기반 채팅·알림 API와 Android 개발에도 일부 참여했습니다.
 
 | 담당 영역 | 직접 구현하거나 참여한 내용 | 관련 코드 |
 | :--- | :--- | :--- |
@@ -50,7 +50,7 @@ SSAFY 15기 특화 프로젝트 · 빅데이터 분산 처리 · 6인 팀
 | **MapReduce·벡터 색인** | kNN 조인·행렬곱·쎄타조인·자카드 셀프조인·K-Means 5종, 벡터 색인 구축과 검색 품질 평가 | [MapReduce](data/mapreduce/) · [평가 코드](data/eval/) · [실험 기록](data/experiments/) |
 | **데이터 인프라** | 데이터 처리에 필요한 Hadoop·Kafka 클러스터와 서비스 운영 구성 | [클러스터 문서](docs/bigdata-cluster.md) · [운영 설정](infra/) |
 | **Backend 일부** | Spring 기반 채팅·알림 API 개발 참여 | [채팅](backend/src/main/java/com/ssafy/backend/chat/) · [알림](backend/src/main/java/com/ssafy/backend/push/) |
-| **Android 일부** | Android 앱 구현·연동 일부 개발 참여 | [Android 기능 코드](android/app/src/main/java/com/hotdog/meonggocuisine/feature/) |
+| **Android 일부** | Android 앱 구현·연동 개발 참여 | [Android 기능 코드](android/app/src/main/java/com/hotdog/meonggocuisine/feature/) |
 
 ## 주요 기능
 
