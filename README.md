@@ -70,29 +70,31 @@ SSAFY 15기 특화 프로젝트 · 빅데이터 분산 처리 · 6인 팀
 
 **AI가 사진을 벡터로 바꾸고, 데이터 파이프라인과 분산 연산이 검색 자산을 준비하며, 상주 매칭 엔진이 사용자 요청을 처리합니다.** Spring Boot는 요청·권한·상태·결과를 관리합니다.
 
+### 공공 데이터 수집과 배치 준비
+
 ```mermaid
-flowchart TB
-    subgraph BATCH["공공 데이터 수집 · 배치 준비"]
-        PUBLIC["전국 보호소 공공 API"] --> KAFKA["Kafka<br/>수집 이벤트"]
-        KAFKA --> HDFS["HDFS<br/>원본 데이터 · 이미지"]
-        HDFS --> AI["YOLO26l-seg + DINOv2<br/>개체 전처리 · 768차원 임베딩"]
-        AI --> ASSET["임베딩 스냅샷 · 검색 자산"]
-        HDFS --> MR["Hadoop MapReduce<br/>배치 계산 · 색인 구축"]
-        MR --> ASSET
-    end
-
-    subgraph SERVICE["사용자 요청 · 비동기 매칭"]
-        APP["Android 앱<br/>사진 등록 · 분석 요청 · 후보 조회"] --> API["Spring Boot API"]
-        API --> DB["PostgreSQL<br/>게시물 · 분석 상태 · 결과"]
-        DB --> WORKER["매칭 worker<br/>작업 선점 · 결과 저장"]
-        WORKER --> ENGINE["상주 매칭 엔진<br/>후보 필터 · 유사도 계산 · Top-K"]
-        ENGINE --> DB
-    end
-
-    ASSET --> ENGINE
+flowchart LR
+    PUBLIC["공공 API"] --> KAFKA["Kafka"]
+    KAFKA --> HDFS["HDFS<br/>원본 · 이미지"]
+    HDFS --> AI["YOLO26l-seg<br/>+ DINOv2"]
+    AI --> ASSET["임베딩 스냅샷<br/>· 검색 자산"]
+    AI --> MR["MapReduce<br/>배치 계산 · 색인"]
+    MR --> ASSET
 ```
 
-위 그림은 매칭을 중심으로 단순화한 구조입니다. 사용자 사진도 HDFS에 저장하며, 요청 시 질의·사용자 후보 사진을 임베딩합니다. Redis는 인증 상태와 실패 제한을, FCM은 일일 요약과 채팅 알림을 담당합니다.
+공공 사진에서 임베딩을 생성하고 HDFS에 적재합니다. MapReduce는 저장된 벡터·메타데이터를 사용해 배치 계산과 색인을 수행합니다. 아래 사용자 요청에서는 상주 매칭 엔진이 준비된 임베딩 스냅샷을 로딩해 활용합니다.
+
+### 사용자 요청과 비동기 매칭
+
+```mermaid
+flowchart LR
+    APP["Android 앱"] <--> API["Spring Boot<br/>API"]
+    API <--> DB["PostgreSQL<br/>분석 상태 · 결과"]
+    DB <--> WORKER["매칭 worker<br/>작업 선점 · 완료 저장"]
+    WORKER <--> ENGINE["상주 매칭 엔진<br/>후보 계산 · Top-K"]
+```
+
+두 그림은 매칭을 중심으로 단순화한 논리적 처리 흐름입니다. 사용자 사진도 HDFS에 저장하며, 요청 시 질의·사용자 후보 사진을 임베딩합니다. Redis는 인증 상태와 실패 제한을, FCM은 일일 요약과 채팅 알림을 담당합니다.
 
 ### 분석 요청의 처리 흐름
 
